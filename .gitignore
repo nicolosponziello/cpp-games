@@ -4,3 +4,6 @@ obj/
 *.cbp
 *.depend
 *.layout
+*.project
+*.cproject
+*.settings/
