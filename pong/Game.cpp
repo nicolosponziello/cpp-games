@@ -138,28 +138,29 @@ void Game::UpdateGame(){
     mBall.x += mBallVel.x * deltaTime;
     mBall.y += mBallVel.y * deltaTime;
 
-    float diff = abs(mPaddle.y - mBall.y);
-    if(diff <= PADDLE_HEIGHT &&
+    float diffPaddle1 = abs(mPaddle.y - mBall.y);
+    float diffPaddle2 = abs(mPaddle2.y - mBall.y);
+    if(diffPaddle1 <= PADDLE_HEIGHT &&
         mBall.x <= mPaddle.x + THICKNESS && mBall.x >= 20.0f &&
         mBallVel.x < 0.0f){
-        std::cout << "Collide paddle" << std::endl;
+        std::cout << "Collide paddle 1" << std::endl;
         mBallVel.x *= -1.0f;
-    } else if(mBall.x <= 0.0f){
-        //mIsRunning = false;
-    }else if(mBall.y <= THICKNESS && mBallVel.y < 0.0f){
+    } else if (diffPaddle2 <= PADDLE_HEIGHT &&
+        mBall.x >= mPaddle2.x - THICKNESS && mBall.x <= SCREEN_WIDTH - 20.0f &&
+        mBallVel.x > 0.0f){
+        mBallVel.x *= -1.0f;
+        std::cout << "Collide paddle 2" << std::endl;
+    } else if(mBall.x <= 0.0f || mBall.x >= SCREEN_WIDTH){
+        mIsRunning = false;
+    } else if(mBall.y <= THICKNESS && mBallVel.y < 0.0f){
         // ball collide on top
         std::cout << "Collide top" << mBall.x << " - " << mBall.y << std::endl;
         mBallVel.y *= -1;
-    }else if(mBall.y >= SCREEN_HEIGHT - THICKNESS && mBallVel.y > 0.0f){
+    } else if(mBall.y >= SCREEN_HEIGHT - THICKNESS && mBallVel.y > 0.0f){
         // ball collide bottom
         std::cout << "Collide bottom" << std::endl;
         mBallVel.y *= -1;
-    }else if(mBall.x >= SCREEN_WIDTH - THICKNESS && mBallVel.x > 0.0f){
-        // ball colide right
-        std::cout << "Collide right" << std::endl;
-        mBallVel.x *= -1;
     }
-
 
     // clam delta time if it is too high
     if(deltaTime > 0.05f){
