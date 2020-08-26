@@ -7,8 +7,10 @@ Game::Game() {
 
     mBall = {SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
     mPaddle = {THICKNESS, SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2};
+    mPaddle2 = {SCREEN_WIDTH - 2*THICKNESS, SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2};
     mTickCount = 0;
     mPaddleDir = 0;
+    mPaddle2Dir = 0;
     mBallVel = {200.0f, -235.0f};
 }
 
@@ -116,7 +118,7 @@ void Game::UpdateGame(){
 
     float diff = abs(mPaddle.y - mBall.y);
     if(diff <= PADDLE_HEIGHT &&
-        mBall.x <= THICKNESS + PADDLE_WIDTH && mBall.x >= 20.0f &&
+        mBall.x <= mPaddle.x + THICKNESS && mBall.x >= 20.0f &&
         mBallVel.x < 0.0f){
         std::cout << "Collide paddle" << std::endl;
         mBallVel.x *= -1.0f;
@@ -160,12 +162,7 @@ void Game::GenerateOutput(){
         1024,
         THICKNESS
     };
-    SDL_Rect rightWall {
-        1024 - THICKNESS,
-        0,
-        THICKNESS,
-        768
-    };
+
     SDL_Rect bottomWall {
         0,
         768 - THICKNESS,
@@ -174,7 +171,6 @@ void Game::GenerateOutput(){
     };
 
     SDL_RenderFillRect(mRenderer, &topWall);
-    SDL_RenderFillRect(mRenderer, &rightWall);
     SDL_RenderFillRect(mRenderer, &bottomWall);
 
     // draw ball
@@ -191,9 +187,16 @@ void Game::GenerateOutput(){
         THICKNESS,
         PADDLE_HEIGHT
     };
+    SDL_Rect paddle2 {
+        static_cast<int>(mPaddle2.x),
+        static_cast<int>(mPaddle2.y - PADDLE_HEIGHT/2),
+        THICKNESS,
+        PADDLE_HEIGHT
+    };
 
     SDL_RenderFillRect(mRenderer, &ball);
     SDL_RenderFillRect(mRenderer, &paddle);
+    SDL_RenderFillRect(mRenderer, &paddle2);
     //swap front and back buffer
     SDL_RenderPresent(mRenderer);
 }

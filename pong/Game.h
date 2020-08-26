@@ -23,9 +23,11 @@ private:
 	SDL_Renderer* mRenderer;
 
 	Vector2 mPaddle;
+	Vector2 mPaddle2;
 	Vector2 mBall;
 	Uint32 mTickCount;
 	int mPaddleDir;
+	int mPaddle2Dir;
 	Vector2 mBallVel;
 };
 

@@ -1,4 +1,3 @@
-#define PADDLE_WIDTH 15.0f
 #define PADDLE_HEIGHT 100
 #define SCREEN_WIDTH 1024.0f
 #define SCREEN_HEIGHT 768.0f
