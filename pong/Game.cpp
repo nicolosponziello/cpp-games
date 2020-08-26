@@ -81,12 +81,24 @@ void Game::ProcessInput(){
         mIsRunning = false;
     }
     if(keyboardState[SDL_SCANCODE_UP]){
+        mPaddle2Dir -= 1;
+        if(mPaddle2Dir < -1){
+            mPaddle2Dir = -1;
+        }
+    }
+    if(keyboardState[SDL_SCANCODE_DOWN]){
+        mPaddle2Dir += 1;
+        if(mPaddle2Dir > +1){
+            mPaddle2Dir = 1;
+        }
+    }
+    if(keyboardState[SDL_SCANCODE_W]){
         mPaddleDir -= 1;
         if(mPaddleDir < -1){
             mPaddleDir = -1;
         }
     }
-    if(keyboardState[SDL_SCANCODE_DOWN]){
+    if(keyboardState[SDL_SCANCODE_S]){
         mPaddleDir += 1;
         if(mPaddleDir > +1){
             mPaddleDir = 1;
@@ -113,6 +125,16 @@ void Game::UpdateGame(){
         }
     }
 
+    if (mPaddle2Dir != 0){
+        mPaddle2.y += mPaddle2Dir * PADDLE_SPEED * deltaTime;
+        if(mPaddle2.y < (PADDLE_HEIGHT / 2.0f +THICKNESS)){
+            mPaddle2.y = PADDLE_HEIGHT / 2.0f +THICKNESS;
+        }
+        if(mPaddle2.y > SCREEN_HEIGHT - PADDLE_HEIGHT / 2.0f - THICKNESS){
+            mPaddle2.y = SCREEN_HEIGHT - PADDLE_HEIGHT / 2.0f - THICKNESS;
+        }
+    }
+
     mBall.x += mBallVel.x * deltaTime;
     mBall.y += mBallVel.y * deltaTime;
 
@@ -123,7 +145,7 @@ void Game::UpdateGame(){
         std::cout << "Collide paddle" << std::endl;
         mBallVel.x *= -1.0f;
     } else if(mBall.x <= 0.0f){
-        mIsRunning = false;
+        //mIsRunning = false;
     }else if(mBall.y <= THICKNESS && mBallVel.y < 0.0f){
         // ball collide on top
         std::cout << "Collide top" << mBall.x << " - " << mBall.y << std::endl;
