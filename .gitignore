@@ -8,3 +8,5 @@ obj/
 *.cproject
 *.settings/
 .vscode/
+*.d
+*.exe
