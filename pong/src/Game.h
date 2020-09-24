@@ -5,7 +5,6 @@
 #include "Vector2.h"
 #include <cmath>
 #include "Constants.h"
-#include <iostream>
 
 class Game {
 public:
