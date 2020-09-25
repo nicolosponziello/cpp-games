@@ -15,6 +15,8 @@ Ship::Ship(Game *game)
         game->GetTexture("assets/Ship03.png"),
         game->GetTexture("assets/Ship04.png")};
     animSprite->SetAnimationTextures(anims);
+    animSprite->AddNewAnimation(0, 3, Ship::FLYING, true);
+    animSprite->SetDefaultAnimation(Ship::FLYING);
 }
 
 void Ship::UpdateActor(float deltaTime)

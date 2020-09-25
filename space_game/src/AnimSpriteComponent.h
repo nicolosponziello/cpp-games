@@ -21,9 +21,9 @@ public:
     float GetAnimFPS() const { return mAnimFPS; }
     void SetAnimFPS(float fps) { mAnimFPS = fps; }
 
-    void AddNewAnimation(int a, int b, AnimationTypes type);
-
-    void PlayAnimation(AnimationTypes type);
+    void AddNewAnimation(int a, int b, int id, bool looping);
+    void PlayAnimation(int id);
+    void SetDefaultAnimation(int id);
 
 private:
     std::vector<SDL_Texture *> mAnimTextures;
@@ -32,5 +32,7 @@ private:
 
     float mAnimFPS;
 
-    std::map<AnimationTypes, Animation> mAnimations;
+    std::map<int, Animation> mAnimations;
+    Animation mCurrentAnimation;
+    int mDefaultAnimationID;
 };

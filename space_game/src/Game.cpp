@@ -98,6 +98,7 @@ void Game::ProcessInput()
     }
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     ship->ProcessKeyboard(state);
+    testAnim->ProcessKeyboard(state);
 }
 
 void Game::UpdateGame()
@@ -166,7 +167,7 @@ void Game::LoadData()
     ship = new Ship(this);
     ship->SetPosition(Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
     ship->SetScale(1.5f);
-
+    
     Actor *tmp = new Actor(this);
     tmp->SetRotation(90.0f);
     tmp->SetPosition(Vector2(512.0f, 384.0f));
@@ -272,7 +273,6 @@ SDL_Texture *Game::GetTexture(const std::string &filename)
     }
     else
     {
-        SDL_Log("Texture %s not found", filename.c_str());
         //texture not found
         SDL_Surface *surface = IMG_Load(filename.c_str());
         if (!surface)
@@ -291,10 +291,6 @@ SDL_Texture *Game::GetTexture(const std::string &filename)
             return nullptr;
         }
         textures.emplace(filename.c_str(), texture);
-    }
-    for (auto t : textures)
-    {
-        SDL_Log(t.first.c_str(), t.second);
     }
     return texture;
 }

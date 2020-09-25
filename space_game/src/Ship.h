@@ -6,6 +6,10 @@
 class Ship : public Actor
 {
 public:
+    enum Animations
+    {
+        FLYING
+    };
     Ship(class Game* game);
     void UpdateActor(float deltaTime);
     void ProcessKeyboard(const u_int8_t* state);
