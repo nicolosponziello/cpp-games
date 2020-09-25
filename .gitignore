@@ -10,3 +10,4 @@ obj/
 .vscode/
 *.d
 *.exe
+main
